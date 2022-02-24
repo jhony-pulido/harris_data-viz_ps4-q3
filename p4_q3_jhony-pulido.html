@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- set styles on the top -->
+    <style>
+        .chart-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+        }
+
+        svg {
+            overflow: visible;
+            height: 570px;
+            width: 945px;
+        }
+
+        h1 {
+           font-family: georgia;
+           font-style: italic;
+           font-weight: bold;
+           margin-left: 200px;
+
+        }
+
+       
+
+    </style>
+</head>
+
+<body>
+    <div class="chart-container">
+        <h1 class="headline">
+           
+        </h1>
+        
+        <h2 class="subheader">
+           
+        </h2>
+        <svg width="1050px" height="900px">
+
+        </svg>
+
+        <p class="source"> 
+            </p>
+    </div>
+</body>
+
+<!-- we're using d3 version 6 (the latest version) for all out work -->
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!-- we need to upload this library to work with topoJson files -->
+<script src="https://unpkg.com/topojson@3"></script>
+
+<script>
+    //------------------------1. PREPARATION------------------------//
+            //-----------------------------SVG------------------------------//
+            // Define width and height:
+            let width = 1050;
+            let height = 550;
+
+            // Define the svg:
+            let svg = d3.select("body").select("svg")
+            //Define margins
+            let margin = {top: 30, right: 20, bottom: 10, left: 0};
+
+            //-----------------------------DATA------------------------------//
+            //A new way of opening data: Promise.all function. It allows to load data and do stuff without waiting for the load to finish
+            Promise.all([
+                d3.json("C:/Users/jjpulido/4/county-state_topo.json") //loading the geojson data. This type of data has two elements: FeatureCollection (geography) and Features (data itself) 
+            ])
+                .then(ready)
+                .catch((err) => {
+                    console.log(err);
+                });
+
+            function ready(res) {
+                console.log(res[0])
+                let raw = res[0]
+                
+                //When working with topojson, we need to decode further the data
+                let county = topojson.feature(raw,raw.objects.county)  
+                let state = topojson.feature(raw,raw.objects.state)
+                console.log(county) 
+             
+
+                //-----------------------------MAP------------------------------/
+                //Two main things are needed to generate a map: generate a path and define a projection:
+                //Define a projection:
+                let myProjection = d3.geoAlbersUsa()
+                    .fitSize([width, height],county) //this allows d3 to adjust the map to the size of your SVG
+
+                //Generate a path function
+                let path = d3.geoPath()
+                    .projection(myProjection) //assigning the projection
+            
+                //Define innerlines
+                let innerlines = topojson.mesh(raw, raw.objects.state, function(a,b){
+                    return a != b;
+                });
+
+                //------------------------2. DISPLAY------------------------//
+                //-----------------------------MAP------------------------------/
+                //Appending a different path for each county
+                //Counties
+                let counties = svg.append("g") 
+                    .selectAll(".counties")
+                    .data(county.features)
+                    .join("path")
+                    .attr("class", function(d){
+                        return d.properties.GEOID
+                    })
+                    .attr("d",path)
+                    .style("fill","none")
+                    .style("stroke","none")
+                               
+                
+                //adding county bubbles:
+                let centroids = svg
+                    .selectAll(".counties")
+                    .data(county.features)
+                    .join("circle")
+                    .attr("class", function(d){
+                        return "p-"+d.properties.NAME
+                    })
+                    .attr("cx", d => {
+                        console.log(d)
+                        console.log(path.centroid(d))
+                        return path.centroid(d)[0]  //path.centroid creates a centroid for each county using the X coordinates
+                    })
+                    .attr("cy", function(d){
+                        return path.centroid(d)[1]  // complementing centroid using the Y coordinates
+                    })
+                    .attr("r",1)
+                    .style("fill","red")
+                    .style("stroke","#ccc")
+                    .style("stroke-width",.2)
+
+                //adding states as innerlines (one big path)
+                let states = svg.append("path")
+                    .attr("d", path(innerlines))
+                    .style("fill","none")
+                    .style("stroke","#eee")
+                    .style("stroke-width", 1)
+
+                //adding states as polygons (one path per state)
+/*                 svg.append("g") 
+                    .selectAll(".states")
+                    .data(state.features)
+                    .join("path")
+                    .attr("class", function(d){
+                        return d.properties.NAME
+                    })
+                    .attr("d",path)
+                    .style("fill","none")
+                    .style("stroke","red")
+             */
+    }
+
+</script>
+
