@@ -69,7 +69,7 @@
             //-----------------------------DATA------------------------------//
             //A new way of opening data: Promise.all function. It allows to load data and do stuff without waiting for the load to finish
             Promise.all([
-                d3.json("C:/Users/jjpulido/4/county-state_topo.json") //loading the geojson data. This type of data has two elements: FeatureCollection (geography) and Features (data itself) 
+                d3.json("county-state_topo.json") //loading the geojson data. This type of data has two elements: FeatureCollection (geography) and Features (data itself) 
             ])
                 .then(ready)
                 .catch((err) => {
