@@ -119,6 +119,19 @@
                 
                 //------------------------2. DISPLAY------------------------//
                 //-----------------------------MAP------------------------------/
+                //Counties
+                let counties = svg.append("g") 
+                    .selectAll(".counties")
+                    .data(county.features)
+                    .join("path")
+                    .attr("class", function(d){
+                        return d.properties.GEOID
+                    })
+                    .attr("d",path)
+                    .style("fill","#eee")
+                    .style("stroke","none")
+                    .style("user-select", "none")
+                
                 //adding states as innerlines (one big path)
                 let states_inner_line = svg.append("path")
                     .attr("d", path(innerlines))
@@ -132,19 +145,6 @@
                     .style("fill","none")
                     .style("stroke","black")
                     .style("stroke-width", 1)
-                
-                //Counties
-                let counties = svg.append("g") 
-                    .selectAll(".counties")
-                    .data(county.features)
-                    .join("path")
-                    .attr("class", function(d){
-                        return d.properties.GEOID
-                    })
-                    .attr("d",path)
-                    .style("fill","#eee")
-                    .style("stroke","none")
-                    .style("user-select", "none")
                 
                 let centroids = svg
                     .selectAll(".counties")
