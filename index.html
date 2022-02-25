@@ -172,6 +172,9 @@
                         //console.log(event.pageX)
                         //console.log(event.pageY)
                         counties
+                            .style("fill","#eee")
+                            .style("stroke","none")
+                            .style("user-select", "none")
                             .style("opacity",0.3)
                         
                         centroids
@@ -200,6 +203,12 @@
                      .on("mouseout", function(event , d){
                           centroids
                             .style("opacity", 1)
+                         
+                         counties
+                            .style("fill","#eee")
+                            .style("stroke","none")
+                            .style("user-select", "none")
+                            .style("opacity",1)
                          
                          states_inner_line
                             .style("opacity", 1)
