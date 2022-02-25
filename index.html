@@ -122,6 +122,7 @@
                 //adding states as innerlines (one big path)
                 let states_inner_line = svg.append("path")
                     .attr("d", path(innerlines))
+                    .style("fill","none")
                     .style("stroke","black")
                     .style("stroke-width", 1)
                 
