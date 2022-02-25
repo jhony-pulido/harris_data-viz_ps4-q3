@@ -88,7 +88,7 @@
                 //console.log(county.features.properties.pop_18_in_poverty)
              
 
-                //-----------------------------MAP------------------------------/
+                //-----------------------------MAP------------------------------//
                 //Two main things are needed to generate a map: generate a path and define a projection:
                 //Define a projection:
                 let myProjection = d3.geoAlbersUsa()
@@ -107,6 +107,14 @@
                 let outerlines = topojson.mesh(raw, raw.objects.state, function(a,b){
                     return a == b;
                 });
+                
+                //-----------------------------TOOLTIP------------------------------//
+                let tooltip = d3.select("body").append("div") 
+                    .attr("class", "tooltip")               
+                    .style("opacity", 0)
+                    .style("position", "absolute")
+                    .style("font-weight", "normal")
+                    .attr("font-size", 50)
                 
                 //------------------------2. DISPLAY------------------------//
                 //-----------------------------MAP------------------------------/
@@ -146,11 +154,14 @@
                     .style("fill","orange")
                     .style("stroke","#ccc")
                     .style("stroke-width",.5)
-                    /*.on("mouseover",(event,d){
-                        .style("fill","orange")
-                        .style("stroke","#ccc")
-                        .style("stroke-width",.5)
-                        
+                    /*.on("mouseover",function(event,d){
+                        points
+                            .style("fill","orange")
+                            .style("stroke","#ccc")
+                            .style("stroke-width",.5)
+                        d3.select(this){
+                            let message = "County:" + d.properties.NAME + " State:    
+                        }
                         
                         })*/
 
