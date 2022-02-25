@@ -203,7 +203,7 @@
                         let format = d3.format(",")
                         let message = d.properties.county_name + " (" + d.properties.state_name + ") " + "<br />" + "has " + format(d.properties.pop_18_in_poverty) + " children " + "<br />" + "living under poverty"
                         tooltip.html(message)
-                            .attr("font-size",5)
+                            .style("font-size",5)
                             .attr("font-weight","bold")
                             .style('top',(event.y) + "px")
                             .style('left',(event.x) + "px")
