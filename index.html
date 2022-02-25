@@ -138,7 +138,7 @@
                     .data(county.features)
                     .join("circle")
                     .attr("class", function(d){
-                        return "p-"+d.properties.NAME
+                        return "p-"+d.properties.county_name
                     })
                     .attr("cx", d => {
                         //console.log(d)
@@ -154,16 +154,22 @@
                     .style("fill","orange")
                     .style("stroke","#ccc")
                     .style("stroke-width",.5)
-                    /*.on("mouseover",function(event,d){
+                    .on("mouseover",function(event,d){
                         points
-                            .style("fill","orange")
+                            .style("fill","yellow")
                             .style("stroke","#ccc")
                             .style("stroke-width",.5)
                         d3.select(this){
-                            let message = "County:" + d.properties.NAME + " State:    
+                            let message = "County:" + d.properties.county_name + " State: " + d.properties.county_name
+                            tooltip.html(message)
                         }
-                        
                         })*/
+                      .on("mouseout", function(event , d){
+                            points
+                            .style("fill","orange")
+                            .style("stroke","#ccc")
+                            .style("stroke-width",.5)
+                      })
 
                 //adding states as innerlines (one big path)
                 let states_inner_line = svg.append("path")
@@ -185,7 +191,7 @@
                     .data(state.features)
                     .join("path")
                     .attr("class", function(d){
-                        return d.properties.NAME
+                        return d.properties.state_name
                     })
                     .attr("d",path)
                     .style("fill","none")
