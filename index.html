@@ -115,7 +115,7 @@
                         return d.properties.GEOID
                     })
                     .attr("d",path)
-                    .style("fill","none")
+                    .style("fill","#eee")
                     .style("stroke","none")
                                
                 
@@ -138,15 +138,15 @@
                     .attr("r",function(d){
                         return Math.sqrt(d.properties.pop_18_in_poverty/300)
                     })
-                    .style("fill","red")
-                    .style("stroke","#ccc")
-                    .style("stroke-width",.2)
+                    .style("fill","orange")
+                    //.style("stroke","#ccc")
+                    //.style("stroke-width",.2)
 
                 //adding states as innerlines (one big path)
                 let states = svg.append("path")
                     .attr("d", path(innerlines))
                     .style("fill","none")
-                    .style("stroke","#eee")
+                    .style("stroke","black")
                     .style("stroke-width", 1)
 
                 //adding states as polygons (one path per state)
