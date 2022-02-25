@@ -122,7 +122,7 @@
                 //adding states as innerlines (one big path)
                 let states_inner_line = svg.append("path")
                     .attr("d", path(innerlines))
-                    .style("fill","none")
+                    .style("fill","#ccc")
                     .style("stroke","black")
                     .style("stroke-width", 1)
                 
@@ -177,7 +177,7 @@
                             .raise()
                         
                         let format = d3.format(",")
-                        let message = d.properties.county_name + " County " + "(" + d.properties.state_name + ") " + "<br />" + "has " + format(d.properties.pop_18_in_poverty) + " children " + "<br />" + "living under poverty"
+                        let message = d.properties.county_name + " (" + d.properties.state_name + ") " + "<br />" + "has " + format(d.properties.pop_18_in_poverty) + " children " + "<br />" + "living under poverty"
                         tooltip.html(message)
                             .attr("font-size",5)
                             .attr("font-weight","bold")
