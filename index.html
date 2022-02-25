@@ -148,14 +148,14 @@
                     //.style("stroke-width",.2)
 
                 //adding states as innerlines (one big path)
-                let states = svg.append("path")
+                let states_inner_line = svg.append("path")
                     .attr("d", path(innerlines))
                     .style("fill","none")
                     .style("stroke","black")
                     .style("stroke-width", 1)
                 
                 //adding states as outerlines (one big path)
-                let states = svg.append("path")
+                let states_outer_line = svg.append("path")
                     .attr("d", path(outerlines))
                     .style("fill","none")
                     .style("stroke","black")
