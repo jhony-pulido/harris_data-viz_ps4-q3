@@ -122,7 +122,6 @@
                 //adding states as innerlines (one big path)
                 let states_inner_line = svg.append("path")
                     .attr("d", path(innerlines))
-                    .style("fill","#ccc")
                     .style("stroke","black")
                     .style("stroke-width", 1)
                 
@@ -134,6 +133,17 @@
                     .style("stroke-width", 1)
                 
                 //Counties
+                let counties = svg.append("g") 
+                    .selectAll(".counties")
+                    .data(county.features)
+                    .join("path")
+                    .attr("class", function(d){
+                        return d.properties.GEOID
+                    })
+                    .attr("d",path)
+                    .style("fill","#eee")
+                    .style("stroke","none")
+                
                 let centroids = svg
                     .selectAll(".counties")
                     .data(county.features)
@@ -153,16 +163,16 @@
                         return Math.sqrt(d.properties.pop_18_in_poverty/300)
                     })
                     .style("fill","orange")
-                    .style("stroke","#ccc")
-                    .style("stroke-width",.5)
+                    .style("stroke","#8e8e8e")
+                    .style("stroke-width",.7)
                     //Mouseover:
                     .on("mouseover",function(event,d){
                         //console.log(event.pageX)
                         //console.log(event.pageY)
+                        counties
+                            .style("opacity",0.3)
+                        
                         centroids
-                            .style("fill","orange")
-                            .style("stroke","#ccc")
-                            .style("stroke-width",.5)
                             .style("opacity", 0.3)
                         
                         states_inner_line
@@ -187,9 +197,6 @@
                         })
                      .on("mouseout", function(event , d){
                           centroids
-                            .style("fill","orange")
-                            .style("stroke","#ccc")
-                            .style("stroke-width",.5)
                             .style("opacity", 1)
                          
                          states_inner_line
