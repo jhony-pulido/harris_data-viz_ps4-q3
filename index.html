@@ -84,8 +84,8 @@
                 let county = topojson.feature(raw,raw.objects.county)  
                 let state = topojson.feature(raw,raw.objects.state)
                 console.log(county)
-                console.log(county.properties.NAME)
-                console.log(county.properties.pop_18_in_poverty)
+                console.log(county.features.properties.NAME)
+                console.log(county.features.properties.pop_18_in_poverty)
              
 
                 //-----------------------------MAP------------------------------/
