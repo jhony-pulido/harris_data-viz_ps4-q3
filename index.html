@@ -179,6 +179,9 @@
                         
                         centroids
                             .style("opacity", 0.3)
+                            .style("fill","orange")
+                            .style("stroke","#8e8e8e")
+                            .style("stroke-width",.7)
                         
                         states_inner_line
                             .style("opacity", 0.3)
@@ -208,6 +211,9 @@
                         })
                      .on("mouseout", function(event , d){
                           centroids
+                           .style("fill","orange")
+                           .style("stroke","#8e8e8e")
+                            .style("stroke-width",.7)
                             .style("opacity", 1)
                          
                          counties
