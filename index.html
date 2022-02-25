@@ -84,8 +84,8 @@
                 let county = topojson.feature(raw,raw.objects.county)  
                 let state = topojson.feature(raw,raw.objects.state)
                 console.log(county)
-                console.log(county.features.properties.NAME)
-                console.log(county.features.properties.pop_18_in_poverty)
+                //console.log(county.features.properties.NAME)
+                //console.log(county.features.properties.pop_18_in_poverty)
              
 
                 //-----------------------------MAP------------------------------/
@@ -128,14 +128,16 @@
                         return "p-"+d.properties.NAME
                     })
                     .attr("cx", d => {
-                        console.log(d)
-                        console.log(path.centroid(d))
+                        //console.log(d)
+                        //console.log(path.centroid(d))
                         return path.centroid(d)[0]  //path.centroid creates a centroid for each county using the X coordinates
                     })
                     .attr("cy", function(d){
                         return path.centroid(d)[1]  // complementing centroid using the Y coordinates
                     })
-                    .attr("r",1)
+                    .attr("r",function(d){
+                        return Math.sqrt(d.properties.pop_18_in_poverty/300)
+                    })
                     .style("fill","red")
                     .style("stroke","#ccc")
                     .style("stroke-width",.2)
