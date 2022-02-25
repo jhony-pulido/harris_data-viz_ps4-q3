@@ -156,7 +156,8 @@
                     .style("stroke-width",.5)
                     //Mouseover:
                     .on("mouseover",function(event,d){
-                        console.log(event)
+                        console.log(event.pageX)
+                        console.log(event.pageY)
                         centroids
                             .style("fill","orange")
                             .style("stroke","#ccc")
