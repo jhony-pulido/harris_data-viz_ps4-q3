@@ -165,7 +165,7 @@
                         d3.select(this)
                             .style("fill","yellow")
                         let format = d3.format(",")
-                        let message = d.properties.county_name + " County " + "(" + d.properties.state_name + ") " <br> + "has " + format(d.properties.pop_18_in_poverty) + " children living under poverty"
+                        let message = d.properties.county_name + " County " + "(" + d.properties.state_name + ") " + "<br />" + "has " + format(d.properties.pop_18_in_poverty) + " children living under poverty"
                         tooltip.html(message)
                             .attr("font-size",10)
                             .attr("font-weight","bold")
