@@ -22,7 +22,10 @@
            font-style: italic;
            font-weight: bold;
            margin-left: 200px;
-
+        }
+        
+        .tooltip {
+            font-size: 10;
         }
 
     </style>
@@ -111,26 +114,13 @@
                     .attr("class", "tooltip")               
                     .style("opacity", 0)
                     .style("position", "absolute")
-                    .style("font-weight", "bold")
-                    .attr("font-size", 10)
+                    .style("font-weight", "normal")
+                    //.attr("font-size", 10)
                 
                 //------------------------2. DISPLAY------------------------//
                 //-----------------------------MAP------------------------------/
                 //Appending a different path for each county
                 //Counties
-                let counties = svg.append("g") 
-                    .selectAll(".counties")
-                    .data(county.features)
-                    .join("path")
-                    .attr("class", function(d){
-                        return d.properties.GEOID
-                    })
-                    .attr("d",path)
-                    .style("fill","#eee")
-                    .style("stroke","none")
-                               
-                
-                //adding county bubbles:
                 let centroids = svg
                     .selectAll(".counties")
                     .data(county.features)
@@ -160,6 +150,7 @@
                             .style("fill","orange")
                             .style("stroke","#ccc")
                             .style("stroke-width",.5)
+                            .style("opacity", 0.3)
                         d3.select(this)
                             .style("fill","yellow")
                         let format = d3.format(",")
