@@ -162,7 +162,7 @@
                         return path.centroid(d)[1]  // complementing centroid using the Y coordinates
                     })
                     .attr("r",function(d){
-                            if (isNaN(path.centroid(d)[0])||isNaN(path.centroid(d)[1])) {
+                            if (isNaN(path.centroid(d)[0])) {
                                 return 0
                             } else {    
                             return Math.sqrt(d.properties.pop_18_in_poverty/300)
